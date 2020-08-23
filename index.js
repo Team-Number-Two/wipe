@@ -10,12 +10,13 @@ request(toiletURL, { json: true }, (err, resp, body) => {
   if (err) { return console.log(err) }
   
   toiletData = body.features
-  console.log(toiletData)
+  express().use(express.static(path.join(__dirname, 'public')))
+    .set('views', path.join(__dirname, 'views'))
+    .set('view engine', 'ejs')
+    .get('/', (req, res) => res.render('pages/index', { 
+      toiletx: toiletData[0].geometry.x,
+      toilety: toiletData[0].geometry.y,
+      toilets: JSON.stringify(toiletData)
+    }))
+    .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 });
-
-express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))

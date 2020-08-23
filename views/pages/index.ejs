@@ -23,7 +23,7 @@ type="text/css"
 
 
 <div id="map"></div>
-<script toiletx=<%= toiletx %> toilety=<%= toilety %>>
+<script>
 	// TO MAKE THE MAP APPEAR YOU MUST
 	// ADD YOUR ACCESS TOKEN FROM
 	// https://account.mapbox.com
@@ -35,17 +35,12 @@ center: [175.6111760, -40.3562240], // starting position [lng, lat]
 zoom: 13 // starting zoom
 });
 
-var toiletx = document.currentScript.getAttribute('toiletx')
-var toilety = document.currentScript.getAttribute('toilety')
-// var toilets = JSON.parse(document.currentScript.getAttribute('toilets'))
-// console.log(toilets)
-
 var marker = new mapboxgl.Marker()
 .setLngLat([175.6111760, -40.3562240])
 .addTo(map);
 
 var marker = new mapboxgl.Marker()
-.setLngLat([toiletx, toilety])
+.setLngLat([175.604256, -40.360916])
 .addTo(map);
  
 map.addControl(
@@ -55,7 +50,7 @@ accessToken: mapboxgl.accessToken
 'top-left'
 );
 
-// Add geolocate control to the map.
+// Add geolocate control to the 
 map.addControl(
 new mapboxgl.GeolocateControl({
 positionOptions: {
@@ -64,6 +59,9 @@ enableHighAccuracy: true
 trackUserLocation: true
 })
 );
+
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());
 
 </script>
 
